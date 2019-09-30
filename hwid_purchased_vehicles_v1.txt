@@ -1,0 +1,13 @@
+SELECT CARMODEL,TOY_NUMBER,PAYMENT
+FROM(
+SELECT CS.apn AS APN,AX.Toy_Number AS TOY_NUMBER,CR.carmodel AS CARMODEL, SUM(HC.amount) AS PAYMENT
+FROM `data-lake-sandbox-m.POS.hw_toy_apn_xref` AX
+INNER JOIN `data-lake-systems-mattel.MCPP.car_stats` CS
+ON CS.apn = AX.Model_ID
+INNER JOIN `data-lake-external.TreasureData.carrankup` CR
+ON CS.playerId=CR.muid
+INNER JOIN `data-lake-external.TreasureData.spendhc` HC
+ON CR.sessionid = HC.sessionid
+AND CR.muid = HC.muid
+AND CR.telemeventorder = HC.telemeventorder
+GROUP BY CS.apn,AX.Toy_Number,CR.carmodel) A

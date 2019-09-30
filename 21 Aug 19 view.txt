@@ -1,0 +1,27 @@
+Query 1
+
+
+SELECT
+  store,
+  iap_sales_revenue,
+  TIMESTAMP_SECONDS(CAST(time AS int64)),
+  time
+FROM
+  `data-lake-external.TreasureData.hw_id_dl_rev_kpi`
+  
+  
+  
+  
+  
+Query 2
+
+
+
+SELECT
+amount, os,
+  TIMESTAMP_SECONDS(CAST(time AS int64)),
+  time
+FROM
+  `data-lake-external.TreasureData.acquiresc`
+LIMIT
+  1000

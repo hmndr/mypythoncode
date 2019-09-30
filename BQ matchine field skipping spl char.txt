@@ -1,0 +1,27 @@
+SELECT Toy_No, Description, carmodel, PAYMENT FROM `data-lake-sandbox-m.POS.hwid_purchased_vehicles_v` 
+join `data-lake-sandbox-m.POS.treasuredata_toy_xref`
+on regexp_replace(trim(regexp_replace(Description,r'BMW i8','')),r'\s{2,}',' ') = regexp_replace(trim(regexp_replace(carmodel,r'Huayra','')),r'\s{2,}',' ')  or
+(regexp_replace(trim(regexp_replace(Description,r'C7R','C7.R')),r'\s{2,}',' ') = regexp_replace(trim(regexp_replace(carmodel,r'2014 ','')),r'\s{2,}',' ')  )or
+(regexp_replace(trim(regexp_replace(Description,r'R35','(R35)')),r'\s{2,}',' ') = regexp_replace(trim(regexp_replace(carmodel,r'-','')),r'\s{2,}',' ')  )or
+(regexp_replace(trim(regexp_replace(Description,r'','')),r'\s{2,}',' ') = regexp_replace(trim(regexp_replace(carmodel,r'HowlinHeat','Howlin  Heat®')),r'\s{2,}',' ')  )or
+regexp_replace(trim(regexp_replace(Description,r'-',' ')),r'\s{2,}',' ') = regexp_replace(trim(regexp_replace(carmodel,r'-',' ')),r'\s{2,}',' ') or
+regexp_replace(trim(regexp_replace(Description,r'71 ',' ')),r'\s{2,}',' ') = regexp_replace(trim(regexp_replace(carmodel,r'71 ',' ')),r'\s{2,}',' ') or
+regexp_replace(trim(regexp_replace(Description,r'20','')),r'\s{2,}',' ') = regexp_replace(trim(regexp_replace(carmodel,r'20','')),r'\s{2,}',' ') or
+regexp_replace(trim(regexp_replace(Description,r'™|®| ','')),r'\s{2,}',' ') = regexp_replace(trim(regexp_replace(carmodel,r'™|®| ','')),r'\s{2,}',' ')
+order by 2,3
+
+
+
+
+
+
+
+SELECT Toy_Number, Model_ID, carmodel, PAYMENT FROM `data-lake-sandbox-m.POS.hwid_purchased_vehicles_v` 
+join `data-lake-sandbox-m.POS.hw_toy_apn_xref`
+ON carmodel = Car_Name
+
+
+SELECT Toy_Number, Model_ID, carmodel, PAYMENT FROM `data-lake-sandbox-m.POS.hwid_purchased_vehicles_v` 
+join `data-lake-sandbox-m.POS.hw_toy_apn_xref`
+on regexp_replace(trim(regexp_replace(Car_Name,r'™|®| ','')),r'\s{2,}',' ') = regexp_replace(trim(regexp_replace(carmodel,r'™|®| ','')),r'\s{2,}',' ')
+order by 2,3
